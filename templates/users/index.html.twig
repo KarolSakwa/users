@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="users-container">
+        <div class="row">
+            <div class="col-9">
+                <h5>Użytkownicy</h5>
+            </div>
+            <div class="col-3">
+                <form method="post">
+                    <a href="/add"><button type="button" class="btn btn-secondary"><i class="bi bi-plus-circle mx-1"></i>Dodaj</button></a>
+                    <a href="/import"><button type="button" class="btn btn-primary"><i class="bi bi-box-arrow-in-left mx-1"></i>Importuj</button></a>
+                </form>
+            </div>
+        </div>
+
+        {% if allUsers|length > 0 %}
+
+        <table class="users-table table table-striped table-hover">
+            <thead class="users-table-header">
+                <tr>
+                    <th class="th-small">Imię i nazwisko</th>
+                    <th class="th-small">Nazwa użytkownika</th>
+                    <th>Mail</th>
+                    <th width="20%">Adres</th>
+                    <th>Telefon</th>
+                    <th class="th-small">Strona internetowa</th>
+                    <th width="20%">Firma</th>
+                </tr>
+            </thead>
+            <tbody class="users-table-body">
+                {% for user in allUsers %}
+                <tr>
+
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <table class="th-small">
+                                <tbody>
+                                    <tr><td>{{ user.street }}, {{ user.suite }}</td></tr>
+                                    <tr><td>{{ user.city }}, {{ user.zipcode }}</td></tr>
+                                    <tr><td>{{ user.lat }} / {{ user.lng }}</td></tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.website }}</td>
+                        <td>
+                            <table>
+                                <tbody class="th-small">
+                                    <tr><td><strong>{{ user.companyName }}</strong></td></tr>
+                                    <tr><td>{{ user.companyCatchPhrase }}</td></tr>
+                                    <tr><td>{{ user.companyBs }}</td></tr>
+                                </tbody>
+                            </table>
+                        </td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+
+            <div>
+
+                <p class="m-3">W tej chwili w bazie nie ma żadnych użytkowników.</p>
+
+            </div>
+
+        {% endif %}
+    </div>
+
+{% endblock %}
